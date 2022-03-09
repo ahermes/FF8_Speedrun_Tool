@@ -1,0 +1,63 @@
+[
+	{
+		"label" : "Quistis + Fish Fins",
+		"baseValue" : 189,
+		"button" : true,
+		"categories" : [
+			{
+				"label" : "Random Encounters",
+				"subCategories" : [
+					{
+						"label" : "label",
+						"times" : 7,
+						"type" : "list",
+						"value": [
+							{
+								"label" : "No Battle",
+								"value" : 0
+							},
+							{
+								"label" : "T-Rex / Caterchipillar",
+								"value" : 10
+							},
+							{
+								"label" : "Bite Bug / Glacial Eye",
+								"value" : 11
+							},
+							{
+								"label" : "Bite Bug x2",
+								"value" : 15
+							},
+							{
+								"label" : "Bite Bug x3",
+								"value" : 19
+							},
+							{
+								"label" : "Bite Bug x2 + Caterchipillar",
+								"value" : 18
+							}
+						]
+					},
+					{
+						"label" : "Camera :",
+						"type" : "buttons",
+						"value": [
+							{
+								"label" : "1 Character",
+								"value" : 2
+							},
+							{
+								"label" : "1 to 1 Character",
+								"value" : 3
+							},
+							{
+								"label" : "3 Characters",
+								"value" : 4
+							}
+						]
+					}
+				]
+			}
+		]
+	}
+]

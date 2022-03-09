@@ -1,0 +1,2 @@
+  if (rng > 255 ? (rng = rng - 256) : (rng = rng))
+  RNGData.find(({rng, table, entry}) => rng === rngMod);
