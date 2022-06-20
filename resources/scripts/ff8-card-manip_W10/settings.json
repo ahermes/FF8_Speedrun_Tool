@@ -6,7 +6,7 @@
   "CountingFrameWidth": 40,
   "EarlyQuistis": "pingval",
   "AutofireSpeed": 12,
-  "DelayFrame": 75,
+  "DelayFrame": 68.6,
   "RanksOrder": "ulrd",
   "StrongHighlightCards": [
     103,
@@ -19,7 +19,7 @@
   ],
   "Order": "Reverse",
   "ConsoleFps": 60,
-  "Player": "zellmama",
+  "Player": "fc01",
   "Fuzzy": [
     ".",
     "r",
@@ -27,7 +27,8 @@
     "ro"
   ],
   "ForcedIncr": 10,
-  "AcceptDelayFrame": 3,
+  "AcceptDelayFrame": 1.5,
   "Prompt": "\u003e ",
-  "Interactive": false
+  "Interactive": false,
+  "GameFps": 57.4
 }

@@ -11,5 +11,15 @@
   "license": "ISC",
   "dependencies": {
     "enquirer": "^2.3.6"
+  },
+  "bin": "index.js",
+  "pkg": {
+    "assets": [
+      "RNGMap.json",
+      "table.json"
+    ],
+    "scripts": "index.js",
+    "targets": [ "node16-win-x64" ],
+    "outputPath": "dist"
   }
 }

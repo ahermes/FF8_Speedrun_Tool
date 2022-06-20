@@ -21,7 +21,15 @@ public class TheEndManipulationEngine {
             "quake (1)", "quart (1)", "quart (2)", "recup (2)", "saignee (1)", "saignee (2)", "saignee (3)", "sideral (1)", "soin (1)", "soin (2)", "soin + (1)", "soin + (2)", "soin + (3)", "soin max (1)", "the end (1)",
             "ultima (2)", "wall (1)"
     });
-
+    static public String[] SPELL_LIST2 = new String[]{
+            "arkange (1)", "anti-sort (2)", "aphasie (1)", "aphasie (2)", "aphasie (3)", "aura (1)", "aura (2)", "aura (3)", "blindage (1)", "blindage (2)", "booster (1)", "booster (2)", "booster (3)", "brasier (1)",
+            "brasier (2)", "brasier (3)", "brasier + (1)", "brasier + (2)", "brasier x (1)", "brasier x (2)", "brasier x (3)", "carapace (1)", "carapace (2)", "carapace (3)", "cecite (1)", "cecite (2)", "cecite (3)",
+            "cyanure (1)", "cyanure (2)", "cyanure (3)", "decubitus (1)", "decubitus (2)", "decubitus (3)", "double (2)", "esuna (1)", "esuna (2)", "esuna (3)", "folie (3)", "foudre (1)", "foudre (2)", "foudre (3)",
+            "foudre + (1)", "foudre + (2)", "foudre + (3)", "foudre x (1)", "foudre x (2)", "foudre x (3)", "fournaise (1)", "glacier (1)", "glacier (2)", "glacier (3)", "glacier + (1)", "glacier + (2)", "glacier + (3)",
+            "glacier x (1)", "glacier x (2)", "glacier x (3)", "h2o (1)", "h2o (2)", "h2o (3)", "joobu (1)", "megalith (2)", "megalith (3)", "meteore (2)", "meteore (3)", "morphee (1)", "morphee (2)", "morphee (3)",
+            "quake (1)", "quart (1)", "quart (2)", "recup (2)", "saignee (1)", "saignee (2)", "saignee (3)", "sideral (1)", "soin (1)", "soin (2)", "soin + (1)", "soin + (2)", "soin + (3)", "soin max (1)", "the end (1)",
+            "ultima (2)", "wall (1)"
+    };
 
 ////////////////////////////////////////////////////UTILITIES///////////////////////////////////////////////////////////
 

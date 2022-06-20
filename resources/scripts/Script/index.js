@@ -5,6 +5,9 @@ const tablesData = require("./table.json");
 const RNGData = require("./RNGMap.json");
 
 async function main() {
+  process.argv.forEach(function (val, index, array) {
+    console.log(index + ': ' + val);
+  });
   let spellOrder = 1;
   const spellList = [];
 
@@ -147,4 +150,6 @@ async function askSpell(spellOrder) {
 const blackDots = [43, 79, 91, 175, 179, 187, 207, 231, 251].sort(
   (a, b) => a > b
 );
+
+
 main();
