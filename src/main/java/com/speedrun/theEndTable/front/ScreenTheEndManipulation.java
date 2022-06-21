@@ -51,9 +51,9 @@ public class ScreenTheEndManipulation {
 //        this.textFieldMap.put("TargetSpell", new AutoCompleteTextField(10));
         this.dataMap.put("TargetSpell", DEFAULT_TARGET_SPELL);
         // Ajout des mort
-        this.dataMap.put("Dead Characters", String.valueOf(0));
+        this.dataMap.put("DeadCharacters", String.valueOf(0));
         // Ajout des ATB Dispo
-        this.dataMap.put("Available ATB?", String.valueOf(1));
+        this.dataMap.put("AvailableATB?", String.valueOf(1));
     }
 
     public void showFrame(Point position) {
@@ -309,7 +309,7 @@ public class ScreenTheEndManipulation {
                 }
                 //@TODO ajouter dans les options le dossier des Scripts JS
 //                final String jsPath = "C:\\Users\\cladd\\IdeaProjects\\FF8_Speedrun_Tool\\resources\\scripts\\Script";
-                final String jsPath = "C:\\Users\\cladd\\IdeaProjects\\FF8_Speedrun_Tool\\resources\\scripts\\Script\\dist\\slot-manip-project.exe";
+                final String jsPath = "C:\\Users\\Marie KIKI\\Documents\\code\\FF8_Speedrun_Tool\\resources\\scripts\\Script\\dist\\slot-manip-project.exe";
 //                UtilitiesToolkit.launchScript("npm start", new ArrayList<String>(Arrays.asList("--prefix", jsPath, "toto", "4")));
                 ArrayList<String> test = new ArrayList<>();
                 dataMap.forEach((key, value) -> {
@@ -323,8 +323,8 @@ public class ScreenTheEndManipulation {
                 Type gsonType = new TypeToken<HashMap>(){}.getType();
                 String gsonString = gson.toJson(dataMap, gsonType);
                 System.out.println(gsonString);
-                UtilitiesToolkit.launchScript(jsPath, new ArrayList<String>(Arrays.asList("\""+ gsonString.replace("\"", "\\\"")+"\"")));
 
+                UtilitiesToolkit.launchScript(jsPath, new ArrayList<String>(Arrays.asList(gsonString.replace("\"", "'").replace(" ", ""))));
             }
         });
         buttonLaunch.setBackground(new Color(200,200,200));

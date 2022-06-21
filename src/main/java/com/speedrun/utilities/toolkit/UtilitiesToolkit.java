@@ -40,8 +40,9 @@ public class UtilitiesToolkit {
         try
         {
             ArrayList<String> listArg = new ArrayList<String>(Arrays.asList("cmd", "/c", "start", "cmd.exe", "/K" ));
-            listArg.add("\"" + scriptPath + "\"");
+			listArg.add("\"\"" + scriptPath.replaceAll("\\\\", "\"\\\\\"") + "\"\"");
             listArg.addAll(arg);
+			listArg.forEach(System.out::println);
             Runtime.getRuntime().exec(listArg.toArray(new String[0]));
 
         }
