@@ -45,15 +45,18 @@ public class ScreenTheEndManipulation {
         this.dataMap = new HashMap<String,String>();
         this.textFieldMap.put("MaxHp", new JTextField());
         this.dataMap.put("MaxHp", DEFAULT_MAX_HP);
-        this.textFieldMap.put("CurrentHp", new JTextField());
-        this.dataMap.put("CurrentHp", DEFAULT_ENTER_VALUE);
-        this.textFieldMap.put("TargetSpell", new JTextField());
+        this.textFieldMap.put("Current Hp", new JTextField());
+        this.dataMap.put("Current Hp", DEFAULT_ENTER_VALUE);
+        this.textFieldMap.put("Target Spell", new JTextField());
 //        this.textFieldMap.put("TargetSpell", new AutoCompleteTextField(10));
-        this.dataMap.put("TargetSpell", DEFAULT_TARGET_SPELL);
+        this.dataMap.put("Target Spell", DEFAULT_TARGET_SPELL);
         // Ajout des mort
-        this.dataMap.put("DeadCharacters", String.valueOf(0));
+        this.dataMap.put("Dead Characters", String.valueOf(0));
         // Ajout des ATB Dispo
-        this.dataMap.put("AvailableATB?", String.valueOf(1));
+        this.dataMap.put("Available ATB?", String.valueOf(1));
+        // Ajout des Status
+        this.dataMap.put("Status Sum", String.valueOf(statusStats));
+
     }
 
     public void showFrame(Point position) {
@@ -69,7 +72,7 @@ public class ScreenTheEndManipulation {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
-        res.add(getColumn("CurrentHp"),gbc);
+        res.add(getColumn("Current Hp"),gbc);
         gbc.gridx++;
 //        res.add(getRadioButton("SelphieLvl",3,initDataRadio()),gbc);
         gbc.gridx++;
@@ -78,7 +81,7 @@ public class ScreenTheEndManipulation {
         gbc.gridy++;
         res.add(getRadioButton("Dead Characters",3,initDataDeadCharacterRadio(), true),gbc);
         gbc.gridx++;
-//        res.add(getCheckBox("Status Sum",3, initDataBox()),gbc);
+        res.add(getCheckBox("Status Sum",3, initDataBox()),gbc);
         gbc.gridx++;
         res.add(getRadioButton("Available ATB?",3,initDataAvailableATBRadio(), true),gbc);
         gbc.gridy++;
@@ -136,6 +139,7 @@ public class ScreenTheEndManipulation {
                             }else{
                                 statusStats -= data.get(boxName);
                             }
+                            dataMap.put(name, String.valueOf(statusStats));
                         }
                     });
             checkBox.setOpaque(false);
