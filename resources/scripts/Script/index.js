@@ -104,8 +104,8 @@ async function main() {
   }
   console.dir({ responses, "Seen Spells": spellOrder }, { depth: null });
 
-  const startTable = responses[0].table;
-  const startEntry = responses[0].entry;
+      const startTable = responses[0].table;
+      const startEntry = responses[0].entry;
 
   const startRng = possibleRNG.find(({ limitLevel, rng, table, entry, the_end_table }) => {
     return table === startTable && entry === startEntry;
