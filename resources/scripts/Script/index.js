@@ -83,7 +83,8 @@ async function main() {
         return;
     }
     spellList.push(spellResponse);
-    possibleRNG = findInfos(spellList);
+    console.log(spellList);
+    possibleRNG = findInfos(spellList, possibleRNG);
     if (possibleRNG.length === 0) {
         console.log("Nothing found for this spell combination, please Skip Turn and restart");
         return;
@@ -102,10 +103,10 @@ async function main() {
     console.dir({ possibleRNG }, { depth: null });
     spellOrder++;
   }
-  console.dir({ responses, "Seen Spells": spellOrder }, { depth: null });
+  console.dir({ possibleRNG, "Seen Spells": spellOrder }, { depth: null });
 
-      const startTable = responses[0].table;
-      const startEntry = responses[0].entry;
+      const startTable = possibleRNG[0].table;
+      const startEntry = possibleRNG[0].entry;
 
   const startRng = possibleRNG.find(({ limitLevel, rng, table, entry, the_end_table }) => {
     return table === startTable && entry === startEntry;
@@ -116,19 +117,26 @@ async function main() {
     return;
   }
 
-  const currentRng = possibleRNG.find(
-    ({ limitLevel, rng, table, entry, the_end_table  }) => rng === (startRng.rng + spellOrder * 4) % 256
-  );
+  let currentRng;
+   if (possibleRNG.length == 1) {
+    currentRng = startRng;
+    currentRng.entry = currentRng.entry + spellOrder - 1
+   } else {
+    currentRng = possibleRNG.find(
+    ({ limitLevel, rng, table, entry, the_end_table  }) => rng === (startRng.rng + spellOrder * 4) % 256);
+  }
   if (typeof currentRng == 'undefined') {
     console.log("Nothing found for this spell combination, please Skip Turn and restart");
     return;
   }
   console.log({ currentRng });
-  const rng = currentRng.rng;
+  const rng = (currentRng.rng + spellOrder * 4) % 256;
+//  currentRng.rng;
   if (currentRng.table === 4 && currentRng.current_crisis_level === 4) {
-        let delta = 183 - currentRng.rng;
+        let delta = 183 - rng;
         if (delta < 0) delta += 256;
-        return `do-over x${delta / 4}`;
+        console.log(`do-over x${delta / 4}`);
+        return;
       }
 
   const blackDot =
@@ -137,7 +145,7 @@ async function main() {
     }) || blackDots[0];
 
     if (currentRng.table === 4) {
-          const doOver1 = (blackDot - 4 - currentRng.rng) / 4;
+          const doOver1 = (blackDot - 4 - rng) / 4;
           const skipTurn = 4;
           let delta = 183 - blackDot;
           if (delta < 0) delta += 256;
@@ -166,7 +174,7 @@ async function main() {
   );
 }
 
-function findInfos(spellList) {
+function findInfos(spellList, possibleRNG) {
   const responses = [];
   // TODO Check RNG Deja disponible
   tablesData.forEach((table, tableIndex) => {
@@ -183,8 +191,17 @@ function findInfos(spellList) {
       }
     });
   });
-  return responses;
-  // console.dir({ responses }, { depth: null });
+  let toto = []
+    responses.forEach((response) => {
+        let found = possibleRNG.find(rng => rng.table === response.table && rng.current_crisis_level === response.crisis && rng.entry === response.entry);
+        if ( typeof found !== 'undefined' ) {
+            toto.push(found);
+        }
+    });
+   console.dir({ toto }, { depth: null });
+//   console.dir({ possibleRNG }, { depth: null });
+//   console.dir({ responses }, { depth: null });
+  return toto;
   // if (responses.length === 1) process.kill();
 }
 
@@ -243,8 +260,8 @@ function createAutocompleteSpellList(tablesData) {
 async function askSpell(spellOrder, possibleRNG) {
     let tables = []
      possibleRNG.forEach(rng => {
-        console.log(rng);
-        console.log(tablesData[rng.table - 1][rng.current_crisis_level - 1][rng.entry - 1 + spellOrder - 1]);
+//        console.log(rng);
+//        console.log(tablesData[rng.table - 1][rng.current_crisis_level - 1][rng.entry - 1 + spellOrder - 1]);
         tables.push(tablesData[rng.table - 1][rng.current_crisis_level - 1][rng.entry - 1 + spellOrder -1]);
      });
     console.log(tables);
