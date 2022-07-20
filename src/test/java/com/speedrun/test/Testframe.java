@@ -1,19 +1,15 @@
 package com.speedrun.test;
 
-import com.speedrun.theEndTable.front.ScreenTheEndManipulation;
-import com.speedrun.utilities.*;
+import com.speedrun.utilities.GlobalValues;
 import com.speedrun.utilities.graphics.MainJFrame;
 import com.speedrun.utilities.graphics.ShadowLabel;
-import com.speedrun.theEndTable.engine.TheEndManipulationCore;
 import com.speedrun.utilities.toolkit.UtilitiesToolkit;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
-import javax.rmi.CORBA.Util;
-import javax.swing.*;
 
 public class Testframe  extends JFrame implements ActionListener {
 

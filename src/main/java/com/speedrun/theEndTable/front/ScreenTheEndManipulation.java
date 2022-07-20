@@ -5,6 +5,7 @@ import ca.odell.glazedlists.swing.AutoCompleteSupport;
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.speedrun.option.object.Options;
 import com.speedrun.theEndTable.utilities.TheEndManipulationEngine;
 import com.speedrun.utilities.GlobalValues;
 import com.speedrun.utilities.GlobalValuesTitle;
@@ -39,8 +40,11 @@ public class ScreenTheEndManipulation {
     private int selphieLvl = 8;
 //    private int availableATB = 1;
 
+    private Options options;
 
-    public ScreenTheEndManipulation(){
+
+    public ScreenTheEndManipulation(Options options){
+        this.options = options;
         this.textFieldMap = new HashMap<String,JTextField>();
         this.dataMap = new HashMap<String,String>();
         this.textFieldMap.put("MaxHp", new JTextField());
@@ -311,9 +315,10 @@ public class ScreenTheEndManipulation {
                 for(String key : dataMap.keySet()){
                     System.out.println(key + " : " + dataMap.get(key));
                 }
-                //@TODO ajouter dans les options le dossier des Scripts JS
+                
 //                final String jsPath = "C:\\Users\\cladd\\IdeaProjects\\FF8_Speedrun_Tool\\resources\\scripts\\Script";
-                final String jsPath = "C:\\Users\\Marie KIKI\\Documents\\code\\FF8_Speedrun_Tool\\resources\\scripts\\Script\\dist\\slot-manip-project.exe";
+//                final String jsPath = "C:\\Users\\Marie KIKI\\Documents\\code\\FF8_Speedrun_Tool\\resources\\scripts\\Script\\dist\\slot-manip-project.exe";
+                final String jsPath = options.getPathScriptTheEndExe() + "\\slot-manip-project.exe";
 //                UtilitiesToolkit.launchScript("npm start", new ArrayList<String>(Arrays.asList("--prefix", jsPath, "toto", "4")));
                 ArrayList<String> test = new ArrayList<>();
                 dataMap.forEach((key, value) -> {

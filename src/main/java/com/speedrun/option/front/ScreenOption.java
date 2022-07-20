@@ -62,6 +62,8 @@ public class ScreenOption implements PrincipalFrames{
 		res.add(UtilitiesToolkit.getVoidPanel(GlobalValues.WIDTH_BLOCS, 5));
 		res.add(getPathOption(ChoicePathEnum.EXE));
 		res.add(UtilitiesToolkit.getVoidPanel(GlobalValues.WIDTH_BLOCS, 5));
+		res.add(getPathOption(ChoicePathEnum.THE_END_EXE));
+		res.add(UtilitiesToolkit.getVoidPanel(GlobalValues.WIDTH_BLOCS, 5));
 //		res.add(getPathOption(ChoicePathEnum.QUISTISRB));
 //		res.add(UtilitiesToolkit.getVoidPanel(GlobalValues.WIDTH_BLOCS, 5));
 //		res.add(getPathOption(ChoicePathEnum.ZELLRB));
@@ -129,6 +131,20 @@ public class ScreenOption implements PrincipalFrames{
 							newerOption.setPathScriptExe(pathRes);
 						}
 						textField.setText(newerOption.getPathScriptExe());
+					}
+				});
+				break;
+			case THE_END_EXE:
+				line.add(new ShadowLabel("The End Exe directory path",GlobalValues.FONT_SIZE,-1),BorderLayout.WEST);
+				chooseFile.setText("Choose path");
+				textField.setText(option.getPathScriptTheEndExe());
+				chooseFile.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						String pathRes = chooseFile("Select the end exe directory", null,option.getPathScriptTheEndExe());
+						if(pathRes != null){
+							newerOption.setPathScriptTheEndExe(pathRes);
+						}
+						textField.setText(newerOption.getPathScriptTheEndExe());
 					}
 				});
 				break;
@@ -339,7 +355,10 @@ public class ScreenOption implements PrincipalFrames{
 					  description, extension);
 			  chooser.setFileFilter(filter);
 			  }
-		File tmpDir = new File(path);
+		  if (path == null) {
+			  path = ".";
+		  }
+		  File tmpDir = new File(path);
 		  if(path.equals("") || !tmpDir.exists()){
 			  chooser.setCurrentDirectory(new File("."));
 		  }else {
@@ -387,6 +406,7 @@ public class ScreenOption implements PrincipalFrames{
 	public static enum ChoicePathEnum{
 		JSON,
 		EXE,
+		THE_END_EXE,
 		QUISTISRB,
 		ZELLRB
 	}

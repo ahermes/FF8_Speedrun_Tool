@@ -20,6 +20,7 @@ public class OptionHelper {
 
             res.setJsonPath(prop.getProperty("speedrun.jsonPath"));
             res.setPathScriptExe(prop.getProperty("speedrun.pathScriptExe"));
+            res.setPathScriptTheEndExe(prop.getProperty("speedrun.pathScriptTheEndExe"));
             res.setBackgroundColorRngCount(Boolean.valueOf(prop.getProperty("speedrun.rngCount.backgroundColor")));
             res.setAcceptDelayFrame(Double.valueOf(prop.getProperty("speedrun.acceptDelayFrame")));
             res.setRngPageFormat(Boolean.valueOf(prop.getProperty("speedrun.arrangedFormat")));
@@ -45,6 +46,7 @@ public class OptionHelper {
 
             prop.setProperty("speedrun.jsonPath", option.getJsonPath());
             prop.setProperty("speedrun.pathScriptExe", option.getPathScriptExe());
+            prop.setProperty("speedrun.pathScriptTheEndExe", option.getPathScriptTheEndExe());
             prop.setProperty("speedrun.arrangedFormat", String.valueOf(option.getRngPageFormat()));
             prop.setProperty("speedrun.acceptDelayFrame",String.valueOf(option.getAcceptDelayFrame()));
             prop.setProperty("speedrun.delayFrame", String.valueOf(option.getDelayFrame()));

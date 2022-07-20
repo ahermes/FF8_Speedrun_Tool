@@ -9,6 +9,7 @@ public class Options {
 	private Boolean patternOrderByFrame = false;
 	private String jsonPath = "";
 	private String pathScriptExe = "";
+	private String pathScriptTheEndExe = "";
 	private String rubyZellPath = "";
 	private String rubyQuistisPath = "";
 	private String rngQuistis = "0" ;
@@ -17,7 +18,7 @@ public class Options {
 	private double gameFps = 0;
 	private boolean showPopUp = false;
 	private boolean backgroundColorRngCount = false;
-	
+
 	private boolean isFromMenu = false;
 
 	public Options() {
@@ -46,6 +47,15 @@ public class Options {
 	public void setPathScriptExe(String pathScript) {
 		this.pathScriptExe = pathScript;
 	}
+
+	public String getPathScriptTheEndExe() {
+		return pathScriptTheEndExe;
+	}
+
+	public void setPathScriptTheEndExe(String pathScript) {
+		this.pathScriptTheEndExe = pathScript;
+	}
+
 
 	public String getJsonPath() {
 		return jsonPath;
@@ -155,6 +165,7 @@ public class Options {
 		this.rngRubyExeChoice = option.getRngRubyExeChoice();
 		this.jsonPath = option.getJsonPath();
 		this.pathScriptExe = option.getPathScriptExe();
+		this.pathScriptTheEndExe = option.getPathScriptTheEndExe();
 		this.rngPageFormat = option.getRngPageFormat();
 		this.rngQuistis = option.getRngQuistis();
 		this.rubyQuistisPath = option.getRubyQuistisPath();
@@ -177,6 +188,7 @@ public class Options {
 				", patternOrderByFrame=" + patternOrderByFrame + 
 				", jsonPath='" + jsonPath + '\'' +
 				", pathScriptExe='" + pathScriptExe + '\'' +
+				", pathScriptTheEndExe='" + pathScriptTheEndExe + '\'' +
 				", rubyZellPath='" + rubyZellPath + '\'' +
 				", rubyQuistisPath='" + rubyQuistisPath + '\'' +
 				", rngQuistis='" + rngQuistis + '\'' +

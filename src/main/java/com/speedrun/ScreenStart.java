@@ -80,7 +80,7 @@ public class ScreenStart extends JFrame implements ActionListener {
     	this.screenCardPattern = new ScreenCardPattern(0,option, this.screenCardPatternZellExec);
     	this.screenCardPatternChooseFrame = new ScreenCardPatternChooseFrame(screenCardPattern,this.option);
     	this.screenCardRng = new ScreenCardRng(screenCardPattern, screenCardPatternZell, option);
-    	this.screenTheEndManipulation = new ScreenTheEndManipulation();
+    	this.screenTheEndManipulation = new ScreenTheEndManipulation(option);
     }
     
     public JPanel getPanel() {
@@ -151,6 +151,7 @@ public class ScreenStart extends JFrame implements ActionListener {
     private void getRNGPage() {
     	File jsonFile = new File(option.getJsonPath());
     	File executableFile = new File(option.getPathScriptExe());
+    	File executableTheEndFile = new File(option.getPathScriptTheEndExe());
     	File rubyZFile = new File(option.getRubyZellPath());
     	File rubyQFile = new File(option.getRubyQuistisPath());
     	boolean canItShowed = true;
@@ -169,7 +170,10 @@ public class ScreenStart extends JFrame implements ActionListener {
     	}else if(!executableFile.exists()) {
     		JOptionPane.showMessageDialog(this, "The exe file don't exist or wrong path", "Input error", 0);
     		canItShowed = false;
-    	}
+    	}else if(!executableTheEndFile.exists()) {
+            JOptionPane.showMessageDialog(this, "The exe file for The END don't exist or wrong path", "Input error", 0);
+            canItShowed = false;
+        }
     	if(canItShowed) {
     		screenCardRng.showFrame(this.getLocation());
     	}
