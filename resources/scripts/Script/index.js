@@ -4,6 +4,7 @@ const { NumberPrompt } = require("enquirer");
 const tablesData = require("./table.json");
 const RNGData = require("./RNGMap.json");
 const MinCrisis = 5;
+
 function calculCrisis(limitLevel){
     if (limitLevel <= 4) return 0;
     if (limitLevel === 5) return 1;
@@ -14,10 +15,6 @@ function calculCrisis(limitLevel){
 
 function calculPossibleRNG() {
     let data = JSON.parse(process.argv[process.argv.length-1].replaceAll('\'', "\""));
-    process.argv.forEach(function (val, index, array) {
-        console.log(index + ': ' + val);
-    });
-    console.log(data);
     const Min = 415;
     const Max = 160;
     let RandomMod = Min;
@@ -25,16 +22,12 @@ function calculPossibleRNG() {
     let HPMod = Math.floor((2500*data.CurrentHp) / data.MaxHp);
     let DeathBonus = Math.floor((200 * data.DeadCharacters) + 1600);
     let StatusBonus = Math.floor(10 * data.StatusSum);
-    console.log(HPMod)
-    console.log(DeathBonus)
-    console.log(StatusBonus)
+
     let RNG = [];
-    let toto = [];
     while (RandomMod >= Max) {
         let crisis =  Math.floor((StatusBonus + DeathBonus - HPMod) / RandomMod);
         if (crisis >= MinCrisis) {
 
-//            RNG.push([LimitLevel, ]);
             let currentCrisis = calculCrisis(crisis);
             let possibleRNGData = RNGData.filter(rng => rng.limitLevel === LimitLevel)
             .map((row) => {
@@ -44,29 +37,18 @@ function calculPossibleRNG() {
                     the_end_table: row.table === 4 && currentCrisis === 4,
                   };
               });
-//              console.log(possibleRNGData);
-            toto.push(possibleRNGData[0]);
+
+            RNG.push(possibleRNGData[0]);
         }
         RandomMod --;
         LimitLevel --;
     }
 
-//    console.log(RNG);console.log(toto);
-
-    return toto;
+    return RNG;
 }
 
 async function main() {
   let possibleRNG  = calculPossibleRNG();
-  console.log(possibleRNG);
-//  let possibleRNGData = RNGData.filter(rng => possibleRNG.includes(rng.limitLevel))
-//  .map((row) => {
-//      return {
-//        ...row,
-//        the_end_table: row.table === 4 && row.current_crisis_level === 4,
-//      };
-//  });
-//  console.log(possibleRNGData);
   let spellOrder = 1;
   const spellList = [];
   const blackDots = possibleRNG
@@ -83,7 +65,6 @@ async function main() {
         return;
     }
     spellList.push(spellResponse);
-    console.log(spellList);
     possibleRNG = findInfos(spellList, possibleRNG);
     if (possibleRNG.length === 0) {
         console.log("Nothing found for this spell combination, please Skip Turn and restart");
@@ -100,13 +81,12 @@ async function main() {
     ) {
       break;
     }
-    console.dir({ possibleRNG }, { depth: null });
     spellOrder++;
   }
   console.dir({ possibleRNG, "Seen Spells": spellOrder }, { depth: null });
 
-      const startTable = possibleRNG[0].table;
-      const startEntry = possibleRNG[0].entry;
+  const startTable = possibleRNG[0].table;
+  const startEntry = possibleRNG[0].entry;
 
   const startRng = possibleRNG.find(({ limitLevel, rng, table, entry, the_end_table }) => {
     return table === startTable && entry === startEntry;
@@ -120,24 +100,24 @@ async function main() {
   let currentRng;
    if (possibleRNG.length == 1) {
     currentRng = startRng;
-    currentRng.entry = currentRng.entry + spellOrder - 1
+    currentRng.entry = currentRng.entry + spellOrder - 1;
+    currentRng.rng = (currentRng.rng + (spellOrder - 1) * 4) % 256;
    } else {
     currentRng = possibleRNG.find(
-    ({ limitLevel, rng, table, entry, the_end_table  }) => rng === (startRng.rng + spellOrder * 4) % 256);
+    ({ limitLevel, rng, table, entry, the_end_table  }) => rng === (startRng.rng + (spellOrder - 1) * 4) % 256);
   }
   if (typeof currentRng == 'undefined') {
     console.log("Nothing found for this spell combination, please Skip Turn and restart");
     return;
   }
   console.log({ currentRng });
-  const rng = (currentRng.rng + spellOrder * 4) % 256;
-//  currentRng.rng;
+  const rng = (currentRng.rng + (spellOrder -1) * 4) % 256;
   if (currentRng.table === 4 && currentRng.current_crisis_level === 4) {
         let delta = 183 - rng;
         if (delta < 0) delta += 256;
         console.log(`do-over x${delta / 4}`);
         return;
-      }
+  }
 
   const blackDot =
     blackDots.find((blackDot) => {
@@ -176,7 +156,6 @@ async function main() {
 
 function findInfos(spellList, possibleRNG) {
   const responses = [];
-  // TODO Check RNG Deja disponible
   tablesData.forEach((table, tableIndex) => {
     table.forEach((crisis, crisisIndex) => {
       const matches = spellsMatchCrisis(spellList, crisis);
@@ -191,24 +170,21 @@ function findInfos(spellList, possibleRNG) {
       }
     });
   });
-  let toto = []
+  let filtered = []
     responses.forEach((response) => {
         let found = possibleRNG.find(rng => rng.table === response.table && rng.current_crisis_level === response.crisis && rng.entry === response.entry);
         if ( typeof found !== 'undefined' ) {
-            toto.push(found);
+            filtered.push(found);
         }
     });
-   console.dir({ toto }, { depth: null });
-//   console.dir({ possibleRNG }, { depth: null });
-//   console.dir({ responses }, { depth: null });
-  return toto;
-  // if (responses.length === 1) process.kill();
+
+  return filtered;
 }
 
 function spellsMatchCrisis(spellList, crisis) {
   const spell1Exists = crisis.find((spell) => spell === spellList[0]);
   if (!spell1Exists) return false;
-  // const startIndex = crisis.findIndex(spell => spell === spellList[0])
+
   // find all start indexes
   const startIndexesCandidates = crisis.reduce((indexes, spell, spellIndex) => {
     if (spellList[0] === spell) {
@@ -242,26 +218,12 @@ function createAutocompleteSpellList(tablesData) {
             spellList.push(spell);
           }
   });
-//  tablesData.forEach((table) => {
-//    table.forEach((crisis) => {
-//      crisis.forEach((spell) => {
-//        const spellExists = spellList.find(
-//          (spellFromList) => spell === spellFromList
-//        );
-//        if (!spellExists) {
-//          spellList.push(spell);
-//        }
-//      });
-//    });
-//  });
   return spellList;
 }
 
 async function askSpell(spellOrder, possibleRNG) {
     let tables = []
      possibleRNG.forEach(rng => {
-//        console.log(rng);
-//        console.log(tablesData[rng.table - 1][rng.current_crisis_level - 1][rng.entry - 1 + spellOrder - 1]);
         tables.push(tablesData[rng.table - 1][rng.current_crisis_level - 1][rng.entry - 1 + spellOrder -1]);
      });
     console.log(tables);
@@ -275,10 +237,5 @@ async function askSpell(spellOrder, possibleRNG) {
   const spellResponse = await spellPrompt.run();
   return spellResponse;
 }
-
-//const blackDots = [43, 79, 91, 175, 179, 187, 207, 231, 251].sort(
-//  (a, b) => a > b
-//);
-
 
 main();
