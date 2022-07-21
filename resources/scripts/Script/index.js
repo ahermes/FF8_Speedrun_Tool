@@ -15,6 +15,7 @@ function calculCrisis(limitLevel){
 
 function calculPossibleRNG() {
     let data = JSON.parse(process.argv[process.argv.length-1].replaceAll('\'', "\""));
+    console.log({ data })
     const Min = 415;
     const Max = 160;
     let RandomMod = Min;
@@ -54,8 +55,6 @@ async function main() {
   const blackDots = possibleRNG
         .filter((row) => row.the_end_table)
         .map((row) => row.rng);
-
-  console.log(blackDots);
 
   let responses;
   while (true) {
@@ -226,7 +225,7 @@ async function askSpell(spellOrder, possibleRNG) {
      possibleRNG.forEach(rng => {
         tables.push(tablesData[rng.table - 1][rng.current_crisis_level - 1][rng.entry - 1 + spellOrder -1]);
      });
-    console.log(tables);
+
   const spellPrompt = new AutoComplete({
     message: `What is your #${spellOrder} slot spell ?`,
     limit: 10,
